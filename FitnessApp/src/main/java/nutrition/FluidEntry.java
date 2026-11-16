@@ -8,6 +8,10 @@ package nutrition;
  *
  * @author enryu
  */
-public class FluidEntry {
+public class FluidEntry extends NutritionEntry {
+    
+    public FluidEntry(String date, int calories) {
+        super(date, calories);
+    }
     
 }

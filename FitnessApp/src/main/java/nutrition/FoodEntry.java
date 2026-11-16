@@ -8,6 +8,10 @@ package nutrition;
  *
  * @author enryu
  */
-public class FoodEntry {
+public class FoodEntry extends NutritionEntry {
+    
+    public FoodEntry(String date, int calories) {
+        super(date, calories);
+    }
     
 }
