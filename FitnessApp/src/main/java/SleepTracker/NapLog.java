@@ -39,6 +39,11 @@ public class NapLog extends RestLog {
         return feltRefreshed;
     }
     
+    //toString() method
+    @Override
+    public String toString(){
+        return super.toString() + "\n Time of Day: " + timeOfDay + "\n Felt Refreshed? " + feltRefreshed ;
+    }
     
     
 }
