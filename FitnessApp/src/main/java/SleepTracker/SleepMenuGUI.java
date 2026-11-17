@@ -5,6 +5,8 @@
 package SleepTracker;
 
 import fitnessapplication.MainMenu;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,11 +16,16 @@ public class SleepMenuGUI extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(SleepMenuGUI.class.getName());
 
+    //declaring a list
+    ArrayList<RestLog> logs;
+    
     /**
      * Creates new form NightLogGUI
      */
     public SleepMenuGUI() {
         initComponents();
+        //initialise the array list
+        logs = new ArrayList<>();
     }
 
     /**
@@ -51,20 +58,20 @@ public class SleepMenuGUI extends javax.swing.JFrame {
         saveBtn = new javax.swing.JButton();
         homeBtn = new javax.swing.JButton();
         napPnl = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jLabel14 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
-        jButton2 = new javax.swing.JButton();
+        napLogIdLbl = new javax.swing.JLabel();
+        napLogIdTF = new javax.swing.JTextField();
+        napDateLbl = new javax.swing.JLabel();
+        napDateTF = new javax.swing.JTextField();
+        napDurationLbl = new javax.swing.JLabel();
+        napDurationTF = new javax.swing.JTextField();
+        napTimeOfDayLbl = new javax.swing.JLabel();
+        napTimeOfDayTF = new javax.swing.JTextField();
+        napFeltRefreshedLbl = new javax.swing.JLabel();
+        napFeltRefreshedCB = new javax.swing.JCheckBox();
+        napNotesLbl = new javax.swing.JLabel();
+        here = new javax.swing.JScrollPane();
+        napNotesTA = new javax.swing.JTextArea();
+        saveNapBtn = new javax.swing.JButton();
         homeBtn1 = new javax.swing.JButton();
         logsPnl = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
@@ -208,40 +215,41 @@ public class SleepMenuGUI extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Night Sleep", nightsleepPnl);
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        jLabel9.setText("Log ID");
+        napLogIdLbl.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        napLogIdLbl.setText("Log ID");
 
-        jTextField7.addActionListener(this::jTextField7ActionPerformed);
+        napLogIdTF.addActionListener(this::napLogIdTFActionPerformed);
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        jLabel10.setText("Date");
+        napDateLbl.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        napDateLbl.setText("Date");
 
-        jTextField8.addActionListener(this::jTextField8ActionPerformed);
+        napDateTF.addActionListener(this::napDateTFActionPerformed);
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        jLabel11.setText("Duration(minutes)");
+        napDurationLbl.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        napDurationLbl.setText("Duration(minutes)");
 
-        jTextField9.addActionListener(this::jTextField9ActionPerformed);
+        napDurationTF.addActionListener(this::napDurationTFActionPerformed);
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        jLabel12.setText("Time of day");
+        napTimeOfDayLbl.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        napTimeOfDayLbl.setText("Time of day");
 
-        jTextField10.addActionListener(this::jTextField10ActionPerformed);
+        napTimeOfDayTF.addActionListener(this::napTimeOfDayTFActionPerformed);
 
-        jLabel13.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        jLabel13.setText("Felt refreshed");
+        napFeltRefreshedLbl.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        napFeltRefreshedLbl.setText("Felt refreshed");
 
-        jLabel14.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        jLabel14.setText("Notes");
+        napNotesLbl.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        napNotesLbl.setText("Notes");
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
+        napNotesTA.setColumns(20);
+        napNotesTA.setRows(5);
+        here.setViewportView(napNotesTA);
 
-        jButton2.setBackground(new java.awt.Color(0, 0, 102));
-        jButton2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Save Nap");
+        saveNapBtn.setBackground(new java.awt.Color(0, 0, 102));
+        saveNapBtn.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        saveNapBtn.setForeground(new java.awt.Color(255, 255, 255));
+        saveNapBtn.setText("Save Nap");
+        saveNapBtn.addActionListener(this::saveNapBtnActionPerformed);
 
         homeBtn1.setBackground(new java.awt.Color(0, 153, 153));
         homeBtn1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -261,26 +269,26 @@ public class SleepMenuGUI extends javax.swing.JFrame {
                             .addGroup(napPnlLayout.createSequentialGroup()
                                 .addGroup(napPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(napPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(napLogIdLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(napDateLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(napDurationLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(napTimeOfDayLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(napFeltRefreshedLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(30, 30, 30)
                                 .addGroup(napPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(napPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                                        .addComponent(jTextField8)
-                                        .addComponent(jTextField9)
-                                        .addComponent(jTextField10))
-                                    .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(napLogIdTF, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                                        .addComponent(napDateTF)
+                                        .addComponent(napDurationTF)
+                                        .addComponent(napTimeOfDayTF))
+                                    .addComponent(napFeltRefreshedCB, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(napPnlLayout.createSequentialGroup()
-                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(napNotesLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(here, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(napPnlLayout.createSequentialGroup()
                         .addGap(17, 17, 17)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(saveNapBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(homeBtn1)))
                 .addContainerGap(30, Short.MAX_VALUE))
@@ -290,31 +298,31 @@ public class SleepMenuGUI extends javax.swing.JFrame {
             .addGroup(napPnlLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(napPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(napLogIdLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(napLogIdTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(napPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(napDateLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(napDateTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(napPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(napDurationLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(napDurationTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(napPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(napTimeOfDayLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(napTimeOfDayTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(napPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox1))
+                    .addComponent(napFeltRefreshedLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(napFeltRefreshedCB))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(napPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(napNotesLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(here, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                 .addGroup(napPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(saveNapBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(homeBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27))
         );
@@ -459,24 +467,62 @@ public class SleepMenuGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_sleepGoalTFActionPerformed
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
-        // TODO add your handling code here:
+        
+        //read what was entered into the text fields:
+        try{
+            
+            String logID = logIdTF.getText();
+            String date = dateTF.getText();
+            String notes = notesTA.getText();
+        
+            int durationMinutes = Integer.parseInt(durationTF.getText());
+            int qualityRating = Integer.parseInt(sleepQualityTF.getText());
+            int interruptions = Integer.parseInt(interruptionsTF.getText());
+            int goalMinutes = Integer.parseInt(sleepGoalTF.getText());
+            
+            //validation checks
+            if (logID.isEmpty() || date.isEmpty()) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Please enter a log ID and date.");
+                return;
+            }
+
+            if (qualityRating < 1 || qualityRating > 5) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Sleep quality must be from 1 to 5.");
+                return;
+            }
+
+            if (durationMinutes <= 0 || goalMinutes <= 0 || interruptions < 0) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Duration and goal must be above zero. Interruptions can be zero or more.");
+                return;
+            }
+
+            // making a new object of NightlySleepLog, with the same constructor
+            NightSleepLog myNight = new NightSleepLog (qualityRating, interruptions, goalMinutes, logID, date, notes, durationMinutes);
+        
+            // append the night to the array list
+            logs.add(myNight);
+            JOptionPane.showMessageDialog(null, "Night added, total logs: " + logs.size());
+            
+        }catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "Please enter whole numbers for duration, sleep quality and interruptions");
+        }
     }//GEN-LAST:event_saveBtnActionPerformed
 
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+    private void napLogIdTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_napLogIdTFActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField7ActionPerformed
+    }//GEN-LAST:event_napLogIdTFActionPerformed
 
-    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
+    private void napDateTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_napDateTFActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField8ActionPerformed
+    }//GEN-LAST:event_napDateTFActionPerformed
 
-    private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
+    private void napDurationTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_napDurationTFActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField9ActionPerformed
+    }//GEN-LAST:event_napDurationTFActionPerformed
 
-    private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
+    private void napTimeOfDayTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_napTimeOfDayTFActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField10ActionPerformed
+    }//GEN-LAST:event_napTimeOfDayTFActionPerformed
 
     private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
         // TODO add your handling code here:
@@ -510,6 +556,40 @@ public class SleepMenuGUI extends javax.swing.JFrame {
        setVisible(false);        
     }//GEN-LAST:event_homeBtn1ActionPerformed
 
+    private void saveNapBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveNapBtnActionPerformed
+        
+        try{
+            //reading the values from the nap tab
+            String logID =  napLogIdTF.getText();
+            String date = napDateTF.getText();
+            String notes =  napNotesTA.getText();
+            String timeOfDay = napTimeOfDayTF.getText();
+        
+            int durationMinutes = Integer.parseInt(napDurationTF.getText());
+            boolean feltRefreshed = napFeltRefreshedCB.isSelected();
+            
+            if (logID.isEmpty() || date.isEmpty() || timeOfDay.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please enter a log ID, date and time of day.");
+                return;
+            }
+
+            if (durationMinutes <= 0) {
+                JOptionPane.showMessageDialog(this, "Nap duration must be greater than 0 minutes.");
+                return;
+            }
+        
+            //making a new object
+            NapLog myNap = new NapLog(timeOfDay, feltRefreshed, logID, date, notes, durationMinutes);
+        
+            //appending it to the array lsit
+            logs.add(myNap);
+            JOptionPane.showMessageDialog(null, "Nap Added Successfuly!\n Number of logs: " + logs.size());
+            
+        }catch(NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Please enter all the details properly");
+        }
+    }//GEN-LAST:event_saveNapBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -540,42 +620,42 @@ public class SleepMenuGUI extends javax.swing.JFrame {
     private javax.swing.JTextField dateTF;
     private javax.swing.JLabel durationLbl;
     private javax.swing.JTextField durationTF;
+    private javax.swing.JScrollPane here;
     private javax.swing.JButton homeBtn;
     private javax.swing.JButton homeBtn1;
     private javax.swing.JButton homeBtn2;
     private javax.swing.JLabel interruptionsLbl;
     private javax.swing.JTextField interruptionsTF;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JLabel logIdLbl;
     private javax.swing.JTextField logIdTF;
     private javax.swing.JPanel logsPnl;
+    private javax.swing.JLabel napDateLbl;
+    private javax.swing.JTextField napDateTF;
+    private javax.swing.JLabel napDurationLbl;
+    private javax.swing.JTextField napDurationTF;
+    private javax.swing.JCheckBox napFeltRefreshedCB;
+    private javax.swing.JLabel napFeltRefreshedLbl;
+    private javax.swing.JLabel napLogIdLbl;
+    private javax.swing.JTextField napLogIdTF;
+    private javax.swing.JLabel napNotesLbl;
+    private javax.swing.JTextArea napNotesTA;
     private javax.swing.JPanel napPnl;
+    private javax.swing.JLabel napTimeOfDayLbl;
+    private javax.swing.JTextField napTimeOfDayTF;
     private javax.swing.JPanel nightsleepPnl;
     private javax.swing.JLabel notesLbl;
     private javax.swing.JTextArea notesTA;
     private javax.swing.JButton saveBtn;
+    private javax.swing.JButton saveNapBtn;
     private javax.swing.JLabel sleepGoalLbl;
     private javax.swing.JTextField sleepGoalTF;
     private javax.swing.JLabel sleepQualityLbl;
