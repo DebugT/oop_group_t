@@ -8,7 +8,8 @@ import nutrition.NutritionGUI;
 
 /**
  *
- * @author enryu
+ * @author Andrei Grigorita
+ * @author_github github.com/S1lverCr0w
  */
 public class NutritionLogGUI extends javax.swing.JFrame {
     
