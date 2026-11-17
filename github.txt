@@ -1,5 +1,5 @@
 [github project repository:]
-https://github.com/DebugT/oop_gorup_t
+https://github.com/DebugT/oop_group_t
 
 
 [collaborators:]
