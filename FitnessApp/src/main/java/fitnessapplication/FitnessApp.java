@@ -27,7 +27,7 @@ public class FitnessApp {
         
         WorkoutHistory history = new WorkoutHistory();
         history.setVisible(false);
-   
+
         
         
     }
