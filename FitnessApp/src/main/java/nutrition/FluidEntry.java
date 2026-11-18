@@ -6,12 +6,60 @@ package nutrition;
 
 /**
  *
- * @author enryu
+ * @author Andrei Grigorita
+ * @author_github github.com/S1lverCr0w
  */
 public class FluidEntry extends NutritionEntry {
+	private String drinkName;
+	private int amountMl;
+
+	public void setDrinkName(String drinkName) {
+		this.drinkName = drinkName;
+	}
+
+	public void setAmountMl(int amountMl) {
+		this.amountMl = amountMl;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public void setCalories(int calories) {
+		this.calories = calories;
+	}
+
+	public String getDrinkName() {
+		return drinkName;
+	}
+
+	public int getAmountMl() {
+		return amountMl;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public int getCalories() {
+		return calories;
+	}
+
+	public FluidEntry(String drinkName, int amountMl, String date, int calories) {
+		super(date, calories);
+		this.drinkName = drinkName;
+		this.amountMl = amountMl;
+	}
+        
+        
+        @Override
+        public String toString() {
+            return (
+                "DrinkName: " + drinkName + ", AmountMl: " + amountMl + 
+                ", KiloCalories: " + calories + ", Date:" + date
+            );
+        }
     
-    public FluidEntry(String date, int calories) {
-        super(date, calories);
-    }
+	
     
 }

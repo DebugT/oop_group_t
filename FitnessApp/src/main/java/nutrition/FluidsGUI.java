@@ -6,7 +6,8 @@ package nutrition;
 
 /**
  *
- * @author enryu
+ * @author Andrei Grigorita
+ * @author_github github.com/S1lverCr0w
  */
 public class FluidsGUI extends javax.swing.JFrame {
     
