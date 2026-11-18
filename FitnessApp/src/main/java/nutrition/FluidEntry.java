@@ -50,6 +50,16 @@ public class FluidEntry extends NutritionEntry {
 		this.drinkName = drinkName;
 		this.amountMl = amountMl;
 	}
+        
+        
+        @Override
+        public String toString() {
+            return (
+                "DrinkName: " + drinkName + ", AmountMl: " + amountMl + 
+                ", KiloCalories: " + calories + ", Date:" + date
+            );
+        }
+    
 	
     
 }

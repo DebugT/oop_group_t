@@ -36,7 +36,7 @@ public abstract class NutritionEntry {
     
     @Override
     public String toString() {
-	    return calories + ", " + date;
+	    return "KiloCalories: " + calories + ", Date:" + date;
     }
     
     public String getEntry() {

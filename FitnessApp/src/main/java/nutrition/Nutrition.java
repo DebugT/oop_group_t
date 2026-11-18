@@ -49,7 +49,7 @@ public class Nutrition {
 	
 	public Nutrition() {
 		nutritionAList = new ArrayList<>();
-		fileName = "nutrition.db";
+		fileName = "nutrition.dat";
 	}
 	
 	public void saveToFile() {

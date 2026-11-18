@@ -4,12 +4,14 @@
  */
 package nutrition;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Andrei Grigorita
  * @author_github github.com/S1lverCr0w
  */
-public class FoodEntry extends NutritionEntry {
+public class FoodEntry extends NutritionEntry implements Serializable {
 	private String foodName;
 	private String mealType;
 	private int protein;
@@ -60,5 +62,14 @@ public class FoodEntry extends NutritionEntry {
 	public int getCalories() {
 		return calories;
 	}
+        
+        @Override
+        public String toString() {
+            return (
+                "FoodName: " + foodName + ", MealType: " + mealType + 
+                ", Protein: " + protein + ", KiloCalories: " + calories +
+                ", Date:" + date
+            );
+        }
     
 }
