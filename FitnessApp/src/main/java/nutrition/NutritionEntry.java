@@ -33,4 +33,13 @@ public abstract class NutritionEntry {
     public void setCalories(int calories) {
         this.calories = calories;
     }
+    
+    @Override
+    public String toString() {
+	    return calories + ", " + date;
+    }
+    
+    public String getEntry() {
+	    return ""; // hold on, maybe i need to use toSring
+    }
 }

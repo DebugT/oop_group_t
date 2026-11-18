@@ -12,5 +12,5 @@ import java.util.ArrayList;
  * @author_github github.com/S1lverCr0w
  */
 public class Nutrition {
-	ArrayList<Object>
+	ArrayList<NutritionEntry> nutritionAList = new ArrayList<>();
 }
