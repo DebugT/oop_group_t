@@ -24,8 +24,12 @@ public class RestLog {
         this.durationMinutes = durationMinutes;     
     }
 
-    //setters
+    //compute method
+    public double calculateDurationHours(){
+        return this.durationMinutes/60.0;
+    }
     
+    //setters
     public void setLogID(String logID) {
         this.logID = logID;
     }
@@ -59,5 +63,10 @@ public class RestLog {
         return durationMinutes;
     }
     
+    //to String method
+    @Override
+    public String toString(){
+        return "User Details: \nLog ID: " + logID + "\n Date: " + date + "\n Notes: " + notes + "\n Duration Minutes: " + durationMinutes + "\n Duration Hours: " + calculateDurationHours() ;
+    }
     
 }

@@ -10,7 +10,12 @@ import fitness.FitnessMenu;
 
 /**
  *
- * @author alexk
+ * @author Alexander Kirichenko
+ * @author1_github github.com/Sasha-Clover
+ * @author Tristan Bradley Odhiambo
+ * @author2_github github.com/DebugT
+ * @author Andrei Grigorita
+ * @author3_github github.com/S1lverCr0w
  */
 public class FitnessApp {
 
@@ -27,7 +32,7 @@ public class FitnessApp {
         
         WorkoutHistory history = new WorkoutHistory();
         history.setVisible(false);
-        
+   
         
         
     }

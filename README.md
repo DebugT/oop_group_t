@@ -4,9 +4,9 @@
 
 ### topic chosen
 - goal 3 health and wellbeing
-- out application is a fitness app
+- our application is a fitness app
 
-#### plan
+#### initial plan
 - AK
     - recycling management app
     - food waste app
