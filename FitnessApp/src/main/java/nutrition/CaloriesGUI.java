@@ -174,6 +174,14 @@ public class CaloriesGUI extends javax.swing.JFrame {
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         // TODO add your handling code here:
+	String foodName = "Cake";
+	int kiloCal = 1200;
+	String date = "25/12/2026";
+	
+	// call the child class that calls the super (abstract) class
+	// to save the data fromt the froma as a object in a text file.
+	// can be called foodIn.db
+	
     }//GEN-LAST:event_saveBtnActionPerformed
 
     private void caloriesTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caloriesTFActionPerformed

@@ -4,10 +4,12 @@
  */
 package nutrition;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author enryu
  */
 public class Nutrition {
-    
+	ArrayList<Object>
 }
