@@ -12,5 +12,36 @@ import java.util.ArrayList;
  * @author_github github.com/S1lverCr0w
  */
 public class Nutrition {
-	ArrayList<NutritionEntry> nutritionAList = new ArrayList<>();
+	String file;
+	ArrayList<NutritionEntry> nutritionAList;
+
+	public String getFile() {
+		return file;
+	}
+
+	public ArrayList<NutritionEntry> getNutritionAList() {
+		return nutritionAList;
+	}
+
+	public void setFile(String file) {
+		this.file = file;
+	}
+
+	public void setNutritionAList(ArrayList<NutritionEntry> nutritionAList) {
+		this.nutritionAList = nutritionAList;
+	}
+
+	public Nutrition(String FILE, ArrayList<NutritionEntry> nutritionAList) {
+		this.file = FILE;
+		this.nutritionAList = nutritionAList;
+	}
+	
+	public Nutrition() {
+		nutritionAList = new ArrayList<>();
+		file = "nutrition.db";
+	}
+	
+//	saveToFile
+	
+	
 }
