@@ -8,6 +8,7 @@ package SleepTracker;
  *
  * @author Tristan Odhiambo
  */
+
 public class NightSleepLog extends RestLog {
     
     //data memebers
@@ -66,6 +67,5 @@ public class NightSleepLog extends RestLog {
     public String toString(){
         return super.toString() + "\n Quality Rating: " + qualityRating + "\n Interruptions: " + interruptions + "\n Sleep Goal (minutes): " + goalMinutes + "\n Minutes below Goal: " + minutesBelowGoal();
     }
-    
-    
+      
 }

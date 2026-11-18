@@ -7,10 +7,11 @@ package SleepTracker;
 import fitnessapplication.MainMenu;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author user
+ * @author Tristan Odhiambo
  */
 public class SleepMenuGUI extends javax.swing.JFrame {
     
@@ -74,14 +75,14 @@ public class SleepMenuGUI extends javax.swing.JFrame {
         saveNapBtn = new javax.swing.JButton();
         homeBtn1 = new javax.swing.JButton();
         logsPnl = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
-        jTextField11 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton5 = new javax.swing.JButton();
-        homeBtn2 = new javax.swing.JButton();
+        searchLogIdLbl = new javax.swing.JLabel();
+        searchLogIdTF = new javax.swing.JTextField();
+        searchBtn = new javax.swing.JButton();
+        showAllBtn = new javax.swing.JButton();
+        logsScrollPane = new javax.swing.JScrollPane();
+        logsTbl = new javax.swing.JTable();
+        deleteLogBtn = new javax.swing.JButton();
+        sleepTabs = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -329,23 +330,24 @@ public class SleepMenuGUI extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Nap", napPnl);
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        jLabel15.setText("Log ID");
+        searchLogIdLbl.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        searchLogIdLbl.setText("Log ID");
 
-        jTextField11.addActionListener(this::jTextField11ActionPerformed);
+        searchLogIdTF.addActionListener(this::searchLogIdTFActionPerformed);
 
-        jButton3.setBackground(new java.awt.Color(0, 102, 204));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Search");
+        searchBtn.setBackground(new java.awt.Color(0, 102, 204));
+        searchBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        searchBtn.setForeground(new java.awt.Color(255, 255, 255));
+        searchBtn.setText("Search");
+        searchBtn.addActionListener(this::searchBtnActionPerformed);
 
-        jButton4.setBackground(new java.awt.Color(0, 102, 204));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Show All");
-        jButton4.addActionListener(this::jButton4ActionPerformed);
+        showAllBtn.setBackground(new java.awt.Color(0, 102, 204));
+        showAllBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        showAllBtn.setForeground(new java.awt.Color(255, 255, 255));
+        showAllBtn.setText("Show All");
+        showAllBtn.addActionListener(this::showAllBtnActionPerformed);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        logsTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -353,22 +355,22 @@ public class SleepMenuGUI extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Log ID", "Type", "Date", "Duration (minutes)"
             }
         ));
-        jScrollPane3.setViewportView(jTable1);
+        logsScrollPane.setViewportView(logsTbl);
 
-        jButton5.setBackground(new java.awt.Color(0, 0, 102));
-        jButton5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("Delete Selected Log");
-        jButton5.addActionListener(this::jButton5ActionPerformed);
+        deleteLogBtn.setBackground(new java.awt.Color(0, 0, 102));
+        deleteLogBtn.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        deleteLogBtn.setForeground(new java.awt.Color(255, 255, 255));
+        deleteLogBtn.setText("Delete Selected Log");
+        deleteLogBtn.addActionListener(this::deleteLogBtnActionPerformed);
 
-        homeBtn2.setBackground(new java.awt.Color(0, 153, 153));
-        homeBtn2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        homeBtn2.setForeground(new java.awt.Color(255, 255, 255));
-        homeBtn2.setText("Back Home");
-        homeBtn2.addActionListener(this::homeBtn2ActionPerformed);
+        sleepTabs.setBackground(new java.awt.Color(0, 153, 153));
+        sleepTabs.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        sleepTabs.setForeground(new java.awt.Color(255, 255, 255));
+        sleepTabs.setText("Back Home");
+        sleepTabs.addActionListener(this::sleepTabsActionPerformed);
 
         javax.swing.GroupLayout logsPnlLayout = new javax.swing.GroupLayout(logsPnl);
         logsPnl.setLayout(logsPnlLayout);
@@ -376,22 +378,22 @@ public class SleepMenuGUI extends javax.swing.JFrame {
             logsPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(logsPnlLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(searchLogIdLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addComponent(jTextField11, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
+                .addComponent(searchLogIdTF, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
                 .addGap(64, 64, 64))
             .addGroup(logsPnlLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(logsPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(logsPnlLayout.createSequentialGroup()
-                        .addComponent(jButton5)
+                        .addComponent(deleteLogBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(homeBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(sleepTabs, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(logsPnlLayout.createSequentialGroup()
-                        .addComponent(jButton3)
+                        .addComponent(searchBtn)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(showAllBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(logsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         logsPnlLayout.setVerticalGroup(
@@ -399,18 +401,18 @@ public class SleepMenuGUI extends javax.swing.JFrame {
             .addGroup(logsPnlLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(logsPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(searchLogIdLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchLogIdTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(logsPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(searchBtn)
+                    .addComponent(showAllBtn))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+                .addComponent(logsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(logsPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(homeBtn2, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(sleepTabs, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                    .addComponent(deleteLogBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -495,7 +497,15 @@ public class SleepMenuGUI extends javax.swing.JFrame {
                 javax.swing.JOptionPane.showMessageDialog(this, "Duration and goal must be above zero. Interruptions can be zero or more.");
                 return;
             }
-
+            
+            //preventing duplicate logs from being made
+            for (RestLog log : logs) {
+                if (log.getLogID().equals(logID)){
+                    JOptionPane.showMessageDialog(this, "This Log ID already exists. Please use a different ID");
+                
+                }
+            }
+            
             // making a new object of NightlySleepLog, with the same constructor
             NightSleepLog myNight = new NightSleepLog (qualityRating, interruptions, goalMinutes, logID, date, notes, durationMinutes);
         
@@ -524,17 +534,54 @@ public class SleepMenuGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_napTimeOfDayTFActionPerformed
 
-    private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
+    private void searchLogIdTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchLogIdTFActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField11ActionPerformed
+    }//GEN-LAST:event_searchLogIdTFActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void showAllBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAllBtnActionPerformed
+        //displaying everything saved inside of the array list
+        
+        //accessing the model in charge of the tables rows
+        DefaultTableModel model = (DefaultTableModel) logsTbl.getModel();
+        
+        //clear all of the rows without deleting any objects from the logs
+        model.setRowCount(0);
+        
+        if (logs.isEmpty()){
+            //this --> to open the box on top of the GUI directly
+            JOptionPane.showMessageDialog(this, "No logs have been added yet");
+            return;
+        } 
+        
+        for (RestLog log : logs){
+            String type;
+            
+            if (log instanceof NightSleepLog){
+                //if the sleep log is during the night..
+                type = "Night Sleep";
+            } else if (log instanceof NapLog){
+                // if the sleep log is a nap 
+                type = "Nap";
+            } else {
+                //if it is not a night sleep or a nap
+                type = "Rest";
+            }
+            
+            //Display the object details within one row, through my get methods
+            model.addRow(new Object[]{
+                log.getLogID(),
+                type,
+                log.getDate(),
+                log.getDurationMinutes()
+            });
+            
+        }
+  
+    }//GEN-LAST:event_showAllBtnActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void deleteLogBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteLogBtnActionPerformed
+        // Allowing the user to delete logs they select     
+    }//GEN-LAST:event_deleteLogBtnActionPerformed
 
     private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
         // redirect user back to homepage
@@ -543,12 +590,12 @@ public class SleepMenuGUI extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_homeBtnActionPerformed
 
-    private void homeBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtn2ActionPerformed
+    private void sleepTabsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sleepTabsActionPerformed
         // TODO add your handling code here:
         MainMenu myHome = new MainMenu();
         myHome.setVisible(true);
         setVisible(false);
-    }//GEN-LAST:event_homeBtn2ActionPerformed
+    }//GEN-LAST:event_sleepTabsActionPerformed
 
     private void homeBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtn1ActionPerformed
        MainMenu myHome = new MainMenu();
@@ -578,6 +625,14 @@ public class SleepMenuGUI extends javax.swing.JFrame {
                 return;
             }
         
+            //ensuring there are no duplicate logs
+            for (RestLog log : logs) {
+                if (log.getLogID().equals(logID)){
+                    JOptionPane.showMessageDialog(this, "This Log ID already exists. Please use a different ID");
+                
+                }
+            }
+            
             //making a new object
             NapLog myNap = new NapLog(timeOfDay, feltRefreshed, logID, date, notes, durationMinutes);
         
@@ -589,6 +644,51 @@ public class SleepMenuGUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Please enter all the details properly");
         }
     }//GEN-LAST:event_saveNapBtnActionPerformed
+
+    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
+        // TODO add your handling code here:
+        String searchID = searchLogIdTF.getText();
+        
+        if (searchID.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a Log ID to search");
+        }
+        
+        //Clear the table prior to displaying the searchr esult
+        DefaultTableModel model = (DefaultTableModel) logsTbl.getModel();
+        model.setRowCount(0);
+
+        boolean found = false;
+        
+        // Loop through each project in the array list
+        for (RestLog log: logs){
+            
+            if(log.getLogID().equals(searchID)){
+                String type;
+                
+                if (log instanceof NightSleepLog){
+                    // Change type to night sleep
+                    type = "Night Sleep";    
+                }else if (log instanceof NapLog){
+                    type = "Nap";
+                } else {
+                    type = "Rest";
+                }
+                
+                model.addRow(new Object[]{
+                    log.getLogID(),
+                    type,
+                    log.getDate(),
+                    log.getDurationMinutes()
+                });
+                
+                found = true;
+            }     
+        }
+        
+        if (!found){
+            JOptionPane.showMessageDialog(this, "No log found with that ID.");
+        }
+    }//GEN-LAST:event_searchBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -618,26 +718,21 @@ public class SleepMenuGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel dateLbl;
     private javax.swing.JTextField dateTF;
+    private javax.swing.JButton deleteLogBtn;
     private javax.swing.JLabel durationLbl;
     private javax.swing.JTextField durationTF;
     private javax.swing.JScrollPane here;
     private javax.swing.JButton homeBtn;
     private javax.swing.JButton homeBtn1;
-    private javax.swing.JButton homeBtn2;
     private javax.swing.JLabel interruptionsLbl;
     private javax.swing.JTextField interruptionsTF;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField11;
     private javax.swing.JLabel logIdLbl;
     private javax.swing.JTextField logIdTF;
     private javax.swing.JPanel logsPnl;
+    private javax.swing.JScrollPane logsScrollPane;
+    private javax.swing.JTable logsTbl;
     private javax.swing.JLabel napDateLbl;
     private javax.swing.JTextField napDateTF;
     private javax.swing.JLabel napDurationLbl;
@@ -656,10 +751,15 @@ public class SleepMenuGUI extends javax.swing.JFrame {
     private javax.swing.JTextArea notesTA;
     private javax.swing.JButton saveBtn;
     private javax.swing.JButton saveNapBtn;
+    private javax.swing.JButton searchBtn;
+    private javax.swing.JLabel searchLogIdLbl;
+    private javax.swing.JTextField searchLogIdTF;
+    private javax.swing.JButton showAllBtn;
     private javax.swing.JLabel sleepGoalLbl;
     private javax.swing.JTextField sleepGoalTF;
     private javax.swing.JLabel sleepQualityLbl;
     private javax.swing.JTextField sleepQualityTF;
+    private javax.swing.JButton sleepTabs;
     private javax.swing.JLabel titleLbl;
     // End of variables declaration//GEN-END:variables
 }
