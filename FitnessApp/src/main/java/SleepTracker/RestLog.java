@@ -8,7 +8,12 @@ package SleepTracker;
  *
  * @author Tristan Odhiambo
  */
-public class RestLog {
+
+import java.io.Serializable;
+
+// Serializable - allows Java to write objects into a file
+// NightSleepLog & RestLog will inherit this
+public class RestLog implements Serializable{
     
     //data memebers
     private String logID;
