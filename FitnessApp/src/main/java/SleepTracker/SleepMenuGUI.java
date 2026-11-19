@@ -8,6 +8,12 @@ import fitnessapplication.MainMenu;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  *
@@ -83,6 +89,9 @@ public class SleepMenuGUI extends javax.swing.JFrame {
         logsTbl = new javax.swing.JTable();
         deleteLogBtn = new javax.swing.JButton();
         sleepTabs = new javax.swing.JButton();
+        loadFileBtn = new javax.swing.JButton();
+        saveFileBtn = new javax.swing.JButton();
+        viewDetailsBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -163,18 +172,16 @@ public class SleepMenuGUI extends javax.swing.JFrame {
                             .addComponent(durationTF)
                             .addComponent(sleepQualityTF)
                             .addComponent(interruptionsTF)
-                            .addComponent(sleepGoalTF))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(sleepGoalTF)))
                     .addGroup(nightsleepPnlLayout.createSequentialGroup()
                         .addGroup(nightsleepPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(saveBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(notesLbl, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                        .addGroup(nightsleepPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nightsleepPnlLayout.createSequentialGroup()
-                                .addComponent(homeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())))))
+                        .addGap(18, 18, 18)
+                        .addGroup(nightsleepPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(homeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(128, Short.MAX_VALUE))
         );
         nightsleepPnlLayout.setVerticalGroup(
             nightsleepPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,11 +214,15 @@ public class SleepMenuGUI extends javax.swing.JFrame {
                 .addGroup(nightsleepPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(notesLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                .addGroup(nightsleepPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(homeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGroup(nightsleepPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(nightsleepPnlLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(nightsleepPnlLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(homeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         jTabbedPane1.addTab("Night Sleep", nightsleepPnl);
@@ -292,7 +303,7 @@ public class SleepMenuGUI extends javax.swing.JFrame {
                         .addComponent(saveNapBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(homeBtn1)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(149, Short.MAX_VALUE))
         );
         napPnlLayout.setVerticalGroup(
             napPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -357,44 +368,77 @@ public class SleepMenuGUI extends javax.swing.JFrame {
             new String [] {
                 "Log ID", "Type", "Date", "Duration (minutes)"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         logsScrollPane.setViewportView(logsTbl);
 
-        deleteLogBtn.setBackground(new java.awt.Color(0, 0, 102));
+        deleteLogBtn.setBackground(new java.awt.Color(255, 0, 51));
         deleteLogBtn.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         deleteLogBtn.setForeground(new java.awt.Color(255, 255, 255));
-        deleteLogBtn.setText("Delete Selected Log");
+        deleteLogBtn.setText("Delete Log");
         deleteLogBtn.addActionListener(this::deleteLogBtnActionPerformed);
 
-        sleepTabs.setBackground(new java.awt.Color(0, 153, 153));
+        sleepTabs.setBackground(new java.awt.Color(0, 51, 204));
         sleepTabs.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         sleepTabs.setForeground(new java.awt.Color(255, 255, 255));
         sleepTabs.setText("Back Home");
         sleepTabs.addActionListener(this::sleepTabsActionPerformed);
+
+        loadFileBtn.setBackground(new java.awt.Color(0, 153, 153));
+        loadFileBtn.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        loadFileBtn.setForeground(new java.awt.Color(255, 255, 255));
+        loadFileBtn.setText("Load File");
+        loadFileBtn.addActionListener(this::loadFileBtnActionPerformed);
+
+        saveFileBtn.setBackground(new java.awt.Color(51, 204, 0));
+        saveFileBtn.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        saveFileBtn.setForeground(new java.awt.Color(255, 255, 255));
+        saveFileBtn.setText("Save File");
+        saveFileBtn.addActionListener(this::saveFileBtnActionPerformed);
+
+        viewDetailsBtn.setBackground(new java.awt.Color(0, 153, 153));
+        viewDetailsBtn.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        viewDetailsBtn.setForeground(new java.awt.Color(255, 255, 255));
+        viewDetailsBtn.setText("View Details");
+        viewDetailsBtn.addActionListener(this::viewDetailsBtnActionPerformed);
 
         javax.swing.GroupLayout logsPnlLayout = new javax.swing.GroupLayout(logsPnl);
         logsPnl.setLayout(logsPnlLayout);
         logsPnlLayout.setHorizontalGroup(
             logsPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(logsPnlLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(searchLogIdLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(searchLogIdTF, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
-                .addGap(64, 64, 64))
-            .addGroup(logsPnlLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(logsPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(logsPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(logsScrollPane)
                     .addGroup(logsPnlLayout.createSequentialGroup()
-                        .addComponent(deleteLogBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(sleepTabs, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(logsPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(logsPnlLayout.createSequentialGroup()
+                                .addComponent(searchLogIdLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(searchLogIdTF, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(logsPnlLayout.createSequentialGroup()
+                                .addComponent(searchBtn)
+                                .addGap(18, 18, 18)
+                                .addComponent(showAllBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(logsPnlLayout.createSequentialGroup()
-                        .addComponent(searchBtn)
+                        .addComponent(viewDetailsBtn)
                         .addGap(18, 18, 18)
-                        .addComponent(showAllBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(logsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(loadFileBtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(saveFileBtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(deleteLogBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                        .addComponent(sleepTabs)))
+                .addContainerGap())
         );
         logsPnlLayout.setVerticalGroup(
             logsPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -407,13 +451,16 @@ public class SleepMenuGUI extends javax.swing.JFrame {
                 .addGroup(logsPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchBtn)
                     .addComponent(showAllBtn))
-                .addGap(18, 18, 18)
-                .addComponent(logsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addGroup(logsPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(sleepTabs, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-                    .addComponent(deleteLogBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(logsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7)
+                .addGroup(logsPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(loadFileBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(deleteLogBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sleepTabs, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(viewDetailsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(saveFileBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("View Logs", logsPnl);
@@ -423,13 +470,13 @@ public class SleepMenuGUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
                 .addGap(157, 157, 157)
                 .addComponent(titleLbl)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -580,7 +627,34 @@ public class SleepMenuGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_showAllBtnActionPerformed
 
     private void deleteLogBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteLogBtnActionPerformed
-        // Allowing the user to delete logs they select     
+        // Allowing the user to delete logs they select  
+        
+        // First, we pin down the row the user selected
+        int selectedRow = logsTbl.getSelectedRow();
+        
+        if (selectedRow == -1){
+            JOptionPane.showMessageDialog(this, "Please select a log from the table first");
+        }
+        
+        // read the log ID from the first column
+        String selectedID = logsTbl.getValueAt(selectedRow, 0).toString();
+        
+        // using a for loop to find the search object in the array list
+        for (int i=0; i < logs.size(); i++){
+            
+            if (logs.get(i).getLogID().equals(selectedID)){
+                
+                //removing the oject from the array list
+                logs.remove(i);
+                
+                //removing its entire row from the table
+                DefaultTableModel model = (DefaultTableModel) logsTbl.getModel();
+                int modelRow = logsTbl.convertRowIndexToModel(selectedRow);
+                model.removeRow(modelRow);
+                
+                JOptionPane.showMessageDialog(this, "Log deleted successfuly");
+            }
+        }
     }//GEN-LAST:event_deleteLogBtnActionPerformed
 
     private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
@@ -690,6 +764,69 @@ public class SleepMenuGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_searchBtnActionPerformed
 
+    private void loadFileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadFileBtnActionPerformed
+        // loading logs from the file
+        try (ObjectInputStream input = new ObjectInputStream(new FileInputStream("sleepLogs.dat"))){
+          
+            logs = (ArrayList<RestLog>) input.readObject();
+            
+            //refresh the table by using the show all button
+            showAllBtn.doClick();
+            
+            //display a message since the logs were loaded succesfully
+            JOptionPane.showMessageDialog(this, "Logs loaded successfully");
+            
+        }catch(FileNotFoundException e){
+            //If the file is not found, output it to the user
+            JOptionPane.showMessageDialog(this, "No save file found. Add some logs to save first");
+            
+        }catch(IOException | ClassNotFoundException e){
+            //If the logs could'nt be loaded at all, alert the user:
+            JOptionPane.showMessageDialog(this, "Could not load logs: " + e.getMessage());
+            
+        }
+    }//GEN-LAST:event_loadFileBtnActionPerformed
+
+    private void saveFileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveFileBtnActionPerformed
+        // saving entries into a txt file
+        // Open a file for writing if it dosent exist and write the object onto it
+        try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("sleepLogs.dat"))){
+            
+            // write/save the whole array list to the txt file
+            output.writeObject(logs);
+            
+            //output a message to user if saving the logs was a success
+            JOptionPane.showMessageDialog(this, "Logs saved to file successfully.");
+            
+        }catch (IOException e){
+            //output message if logs failed to save
+            JOptionPane.showMessageDialog(this, "Could not save logs: " + e.getMessage());
+        }
+    }//GEN-LAST:event_saveFileBtnActionPerformed
+
+    private void viewDetailsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewDetailsBtnActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = logsTbl.getSelectedRow();
+        
+        if (selectedRow == -1){
+            JOptionPane.showMessageDialog(this, "Please enter a log to review its details");
+        }
+        
+        //read the log ID from the selected row
+        String selectedID = logsTbl.getValueAt(selectedRow, 0).toString();
+        
+        // find the matching object within the array list
+        // Using the toString() method to loop through RestLog (Polymorphism)
+        for (RestLog log: logs){
+            if (log.getLogID().equals(selectedID)){
+                
+                JOptionPane.showMessageDialog(this, log.toString(), "Log Details", JOptionPane.INFORMATION_MESSAGE);
+            }
+            
+        }
+        
+    }//GEN-LAST:event_viewDetailsBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -728,6 +865,7 @@ public class SleepMenuGUI extends javax.swing.JFrame {
     private javax.swing.JTextField interruptionsTF;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JButton loadFileBtn;
     private javax.swing.JLabel logIdLbl;
     private javax.swing.JTextField logIdTF;
     private javax.swing.JPanel logsPnl;
@@ -750,6 +888,7 @@ public class SleepMenuGUI extends javax.swing.JFrame {
     private javax.swing.JLabel notesLbl;
     private javax.swing.JTextArea notesTA;
     private javax.swing.JButton saveBtn;
+    private javax.swing.JButton saveFileBtn;
     private javax.swing.JButton saveNapBtn;
     private javax.swing.JButton searchBtn;
     private javax.swing.JLabel searchLogIdLbl;
@@ -761,5 +900,6 @@ public class SleepMenuGUI extends javax.swing.JFrame {
     private javax.swing.JTextField sleepQualityTF;
     private javax.swing.JButton sleepTabs;
     private javax.swing.JLabel titleLbl;
+    private javax.swing.JButton viewDetailsBtn;
     // End of variables declaration//GEN-END:variables
 }
