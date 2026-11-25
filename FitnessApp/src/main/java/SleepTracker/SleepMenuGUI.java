@@ -17,7 +17,7 @@ import java.io.IOException;
 
 /**
  *
- * @author Tristan Odhiambo
+ * @author Tristan Odhiambo (github.com/DebugT)
  */
 public class SleepMenuGUI extends javax.swing.JFrame {
     
@@ -549,7 +549,7 @@ public class SleepMenuGUI extends javax.swing.JFrame {
             for (RestLog log : logs) {
                 if (log.getLogID().equals(logID)){
                     JOptionPane.showMessageDialog(this, "This Log ID already exists. Please use a different ID");
-                
+                    return;       
                 }
             }
             
@@ -634,6 +634,7 @@ public class SleepMenuGUI extends javax.swing.JFrame {
         
         if (selectedRow == -1){
             JOptionPane.showMessageDialog(this, "Please select a log from the table first");
+            return;
         }
         
         // read the log ID from the first column
@@ -703,7 +704,7 @@ public class SleepMenuGUI extends javax.swing.JFrame {
             for (RestLog log : logs) {
                 if (log.getLogID().equals(logID)){
                     JOptionPane.showMessageDialog(this, "This Log ID already exists. Please use a different ID");
-                
+                    return;
                 }
             }
             
@@ -725,6 +726,7 @@ public class SleepMenuGUI extends javax.swing.JFrame {
         
         if (searchID.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter a Log ID to search");
+            return;
         }
         
         //Clear the table prior to displaying the searchr esult
@@ -810,6 +812,7 @@ public class SleepMenuGUI extends javax.swing.JFrame {
         
         if (selectedRow == -1){
             JOptionPane.showMessageDialog(this, "Please enter a log to review its details");
+            return;
         }
         
         //read the log ID from the selected row

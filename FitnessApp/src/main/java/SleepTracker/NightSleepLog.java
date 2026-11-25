@@ -6,10 +6,10 @@ package SleepTracker;
 
 /**
  *
- * @author Tristan Odhiambo
+ * @author Tristan Odhiambo (github.com/DebugT)
  */
 
-public class NightSleepLog extends RestLog {
+public class NightSleepLog extends RestLog implements RestAssessable {
     
     //data memebers
     private int qualityRating;
@@ -62,10 +62,24 @@ public class NightSleepLog extends RestLog {
        }
     }
     
-    //A toString() method, inherits data memebers from RestLog
+    //Implementing the method from the RestAssessable interface
+    @Override
+    public String getWellnessTip(){
+       if(minutesBelowGoal() > 0){
+           return "You were " + minutesBelowGoal() + "mins below your sleep goal. \n Please try winding down 30 mins earlier tonight";
+       } else if (interruptions > 2){
+           return "Multiple interruptions were detected. \n Try to keep your room cool, dark, and screen-free before bed";
+       } else if (qualityRating <= 2){
+           return "Low sleep quality recorded. \nConsider avoiding caffeine in the late afternoon.";
+       } else {
+           return "Great job! You met your sleep goal with solid rest quality.";
+       }
+    }
+    
+    //A toString() method, inherits data memebers from RestLog and includes the wellness tip from the interface
     @Override
     public String toString(){
-        return super.toString() + "\n Quality Rating: " + qualityRating + "\n Interruptions: " + interruptions + "\n Sleep Goal (minutes): " + goalMinutes + "\n Minutes below Goal: " + minutesBelowGoal();
+        return super.toString() + "\n Quality Rating: " + qualityRating + "\n Interruptions: " + interruptions + "\n Sleep Goal (minutes): " + goalMinutes + "\n Minutes below Goal: " + minutesBelowGoal() + "\n\n Wellness Tip: " + getWellnessTip();
     }
       
 }

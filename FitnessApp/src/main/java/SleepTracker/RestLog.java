@@ -6,7 +6,7 @@ package SleepTracker;
 
 /**
  *
- * @author Tristan Odhiambo
+ * @author Tristan Odhiambo (github.com/DebugT)
  */
 
 import java.io.Serializable;
